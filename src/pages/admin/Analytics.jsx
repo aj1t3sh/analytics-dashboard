@@ -1,4 +1,6 @@
-import AdminLayout from "../../components/common/AdminLayout"
+import API from "../../services/api";
+import { useEffect, useState } from "react";
+import AdminLayout from "../../components/common/AdminLayout";
 
 import {
   ResponsiveContainer,
@@ -8,36 +10,29 @@ import {
   YAxis,
   Tooltip,
   CartesianGrid,
-} from "recharts"
-
-const analyticsData = [
-  {
-    name: "Mon",
-    users: 400,
-  },
-  {
-    name: "Tue",
-    users: 700,
-  },
-  {
-    name: "Wed",
-    users: 500,
-  },
-  {
-    name: "Thu",
-    users: 900,
-  },
-  {
-    name: "Fri",
-    users: 1200,
-  },
-  {
-    name: "Sat",
-    users: 950,
-  },
-]
+} from "recharts";
 
 function Analytics() {
+
+  const [metrics, setMetrics] = useState([]);
+
+  useEffect(() => {
+
+    API.get("/metrics")
+      .then((response) => {
+        setMetrics(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }, []);
+
+  // Convert backend data for chart
+  const analyticsData = metrics.map((metric) => ({
+    name: metric.metricName,
+    users: metric.metricValue,
+  }));
 
   return (
 
@@ -52,11 +47,11 @@ function Analytics() {
           <div className="mb-6">
 
             <h1 className="text-2xl font-bold text-slate-800">
-              Weekly User Analytics
+              System Analytics
             </h1>
 
             <p className="text-slate-500 mt-1">
-              User engagement overview
+              Real-time analytics overview
             </p>
 
           </div>
@@ -89,41 +84,24 @@ function Analytics() {
 
         <div className="space-y-6">
 
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
+          {metrics.map((metric) => (
 
-            <h2 className="text-slate-500">
-              Active Users
-            </h2>
+            <div
+              key={metric.id}
+              className="bg-white rounded-2xl p-6 shadow-sm"
+            >
 
-            <h1 className="text-5xl font-bold text-slate-800 mt-4">
-              8.2K
-            </h1>
+              <h2 className="text-slate-500">
+                {metric.metricName}
+              </h2>
 
-          </div>
+              <h1 className="text-5xl font-bold text-slate-800 mt-4">
+                {metric.metricValue}
+              </h1>
 
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
+            </div>
 
-            <h2 className="text-slate-500">
-              Engagement Rate
-            </h2>
-
-            <h1 className="text-5xl font-bold text-indigo-600 mt-4">
-              78%
-            </h1>
-
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
-
-            <h2 className="text-slate-500">
-              Growth
-            </h2>
-
-            <h1 className="text-5xl font-bold text-green-600 mt-4">
-              +24%
-            </h1>
-
-          </div>
+          ))}
 
         </div>
 
@@ -131,7 +109,7 @@ function Analytics() {
 
     </AdminLayout>
 
-  )
+  );
 }
 
-export default Analytics
+export default Analytics;

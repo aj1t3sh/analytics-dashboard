@@ -14,10 +14,12 @@ function Navbar({
 
   const handleLogout = () => {
 
-  localStorage.removeItem("role")
+    localStorage.removeItem("token")
+    localStorage.removeItem("role")
 
-  navigate("/")
-}
+    navigate("/")
+
+  }
 
   return (
 
@@ -41,7 +43,7 @@ function Navbar({
 
       <div className="flex items-center gap-5">
 
-        {/* Search Bar */}
+        {/* Search */}
 
         <div className="flex items-center bg-slate-100 px-4 py-3 rounded-xl w-72">
 
@@ -62,11 +64,11 @@ function Navbar({
 
         <div className="bg-slate-100 p-3 rounded-xl hover:bg-slate-200 transition cursor-pointer">
 
-          <Bell size={20} />
+          <Bell size={20} className="text-slate-700" />
 
         </div>
 
-        {/* Profile */}
+        {/* User Profile */}
 
         <div className="flex items-center gap-3">
 
@@ -92,7 +94,7 @@ function Navbar({
 
         </div>
 
-        {/* Logout Button */}
+        {/* Logout */}
 
         <button
           onClick={handleLogout}
