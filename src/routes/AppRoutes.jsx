@@ -1,16 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Login from "../pages/auth/Login"
+import Login from "../pages/auth/Login";
 
-import AdminDashboard from "../pages/admin/AdminDashboard"
-import Analytics from "../pages/admin/Analytics"
-import Reports from "../pages/admin/Reports"
+import AdminDashboard from "../pages/admin/AdminDashboard";
+import Analytics from "../pages/admin/Analytics";
+import Reports from "../pages/admin/Reports";
+import Logs from "../pages/admin/Logs";
 
-import UserDashboard from "../pages/user/UserDashboard"
-import UserAnalytics from "../pages/user/UserAnalytics"
-import UserReports from "../pages/user/UserReports"
+import UserDashboard from "../pages/user/UserDashboard";
+import UserAnalytics from "../pages/user/UserAnalytics";
+import UserReports from "../pages/user/UserReports";
 
-import ProtectedRoute from "../components/common/ProtectedRoute"
+import ProtectedRoute from "../components/common/ProtectedRoute";
 
 function AppRoutes() {
 
@@ -62,6 +63,17 @@ function AppRoutes() {
           }
         />
 
+        <Route
+          path="/logs"
+          element={
+            <ProtectedRoute allowedRole="admin">
+
+              <Logs />
+
+            </ProtectedRoute>
+          }
+        />
+
         {/* User Routes */}
 
         <Route
@@ -101,7 +113,7 @@ function AppRoutes() {
 
     </BrowserRouter>
 
-  )
+  );
 }
 
-export default AppRoutes
+export default AppRoutes;

@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { loginUser } from "../../services/authService"
 
 import {
   Mail,
@@ -11,43 +12,45 @@ function Login() {
 
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
 
-  const handleLogin = (role) => {
+  const handleLogin = async () => {
 
     setError("")
 
-    // Admin Login
+    try {
 
-    if (
-      role === "admin" &&
-      email === "admin@gmail.com" &&
-      password === "admin123"
-    ) {
+      const response = await loginUser(username, password)
 
-      localStorage.setItem("role", "admin")
+      console.log(response)
 
-      navigate("/admin-dashboard")
-    }
+      // Save JWT Token
 
-    // User Login
+      localStorage.setItem("token", response.token)
 
-    else if (
-      role === "user" &&
-      email === "user@gmail.com" &&
-      password === "user123"
-    ) {
+      // Save Role
 
-      localStorage.setItem("role", "user")
+      localStorage.setItem("role", response.role)
 
-      navigate("/user-dashboard")
-    }
+      // Navigate
 
-    else {
+      if (response.role === "admin") {
+
+        navigate("/admin-dashboard")
+
+      } else {
+
+        navigate("/user-dashboard")
+
+      }
+
+    } catch (error) {
 
       setError("Invalid Credentials")
+
+      console.log(error)
 
     }
 
@@ -106,13 +109,13 @@ function Login() {
 
         )}
 
-        {/* Email */}
+        {/* Username */}
 
         <div className="mb-5">
 
           <label className="text-sm font-semibold text-slate-600">
 
-            Email Address
+            Username
 
           </label>
 
@@ -124,10 +127,10 @@ function Login() {
             />
 
             <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full ml-3 outline-none bg-transparent text-slate-700 placeholder:text-slate-400"
             />
 
@@ -164,29 +167,16 @@ function Login() {
 
         </div>
 
-        {/* Buttons */}
+        {/* Login Button */}
 
-        <div className="space-y-4">
+        <button
+          onClick={handleLogin}
+          className="w-full bg-gradient-to-r from-orange-400 to-pink-500 hover:scale-[1.02] text-white p-4 rounded-xl font-semibold transition duration-300 shadow-lg"
+        >
 
-          <button
-            onClick={() => handleLogin("admin")}
-            className="w-full bg-gradient-to-r from-orange-400 to-orange-500 hover:scale-[1.02] text-white p-4 rounded-xl font-semibold transition duration-300 shadow-lg"
-          >
+          Login
 
-            Login as Admin
-
-          </button>
-
-          <button
-            onClick={() => handleLogin("user")}
-            className="w-full bg-gradient-to-r from-pink-400 to-pink-500 hover:scale-[1.02] text-white p-4 rounded-xl font-semibold transition duration-300 shadow-lg"
-          >
-
-            Login as User
-
-          </button>
-
-        </div>
+        </button>
 
         {/* Credentials */}
 
@@ -206,7 +196,7 @@ function Login() {
                 Admin:
               </span>{" "}
 
-              admin@gmail.com / admin123
+              admin / admin123
 
             </p>
 
@@ -216,7 +206,7 @@ function Login() {
                 User:
               </span>{" "}
 
-              user@gmail.com / user123
+              user / user123
 
             </p>
 

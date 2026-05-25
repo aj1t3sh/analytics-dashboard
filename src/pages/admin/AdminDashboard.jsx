@@ -9,7 +9,7 @@ function AdminDashboard() {
   const adminStats = [
     {
       title: "Total Users",
-      value: "1,275",
+      value: "1,350",
       growth: "+12%",
       color: "bg-green-500",
     },
