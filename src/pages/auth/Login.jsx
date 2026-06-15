@@ -62,19 +62,19 @@ function Login() {
 
       {/* Background Blur */}
 
-      <div className="absolute top-[-120px] left-[-120px] w-[420px] h-[420px] bg-orange-200 opacity-40 rounded-full blur-3xl"></div>
+      <div className="absolute top-[-120px] left-[-120px] w-[420px] h-[420px] bg-black-20 opacity-40 rounded-full blur-3xl"></div>
 
-      <div className="absolute bottom-[-120px] right-[-120px] w-[420px] h-[420px] bg-pink-200 opacity-40 rounded-full blur-3xl"></div>
+      <div className="bg-blue-20"></div>
 
       {/* Login Card */}
 
-      <div className="relative z-10 w-full max-w-md bg-white/80 backdrop-blur-2xl border border-white shadow-2xl rounded-[32px] p-10">
+      <div className="relative z-10 w-full max-w-md bg-blue/80 backdrop-blur-2xl border border-white shadow-2xl rounded-[32px] p-10">
 
         {/* Logo */}
 
         <div className="flex flex-col items-center mb-10">
 
-          <div className="bg-gradient-to-r from-orange-400 to-pink-400 p-4 rounded-2xl shadow-lg">
+          <div className="bg-gradient-to-r from-purple-400 to-pink-400 p-4 rounded-2xl shadow-lg">
 
             <ShieldCheck
               size={40}
@@ -101,7 +101,7 @@ function Login() {
 
         {error && (
 
-          <div className="bg-red-100 border border-red-300 text-red-600 px-4 py-3 rounded-xl mb-5 text-sm font-medium">
+          <div className="bg-blue-100 border border-blue-300 text-red-600 px-4 py-3 rounded-xl mb-5 text-sm font-medium">
 
             {error}
 
