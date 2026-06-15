@@ -15,7 +15,7 @@ import ProtectedRoute from "../components/common/ProtectedRoute";
 
 function AppRoutes() {
   return (
-    <HashRouter>
+    <HashRouter basename="/">
       <Routes>
         {/* Login */}
         <Route path="/" element={<Login />} />
