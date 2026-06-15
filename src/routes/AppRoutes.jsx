@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Login from "../pages/auth/Login";
 
@@ -14,29 +14,18 @@ import UserReports from "../pages/user/UserReports";
 import ProtectedRoute from "../components/common/ProtectedRoute";
 
 function AppRoutes() {
-
   return (
-
-    <BrowserRouter>
-
+    <HashRouter>
       <Routes>
-
         {/* Login */}
-
-        <Route
-          path="/"
-          element={<Login />}
-        />
+        <Route path="/" element={<Login />} />
 
         {/* Admin Routes */}
-
         <Route
           path="/admin-dashboard"
           element={
             <ProtectedRoute allowedRole="admin">
-
               <AdminDashboard />
-
             </ProtectedRoute>
           }
         />
@@ -45,9 +34,7 @@ function AppRoutes() {
           path="/analytics"
           element={
             <ProtectedRoute allowedRole="admin">
-
               <Analytics />
-
             </ProtectedRoute>
           }
         />
@@ -56,9 +43,7 @@ function AppRoutes() {
           path="/reports"
           element={
             <ProtectedRoute allowedRole="admin">
-
               <Reports />
-
             </ProtectedRoute>
           }
         />
@@ -67,22 +52,17 @@ function AppRoutes() {
           path="/logs"
           element={
             <ProtectedRoute allowedRole="admin">
-
               <Logs />
-
             </ProtectedRoute>
           }
         />
 
         {/* User Routes */}
-
         <Route
           path="/user-dashboard"
           element={
             <ProtectedRoute allowedRole="user">
-
               <UserDashboard />
-
             </ProtectedRoute>
           }
         />
@@ -91,9 +71,7 @@ function AppRoutes() {
           path="/user-analytics"
           element={
             <ProtectedRoute allowedRole="user">
-
               <UserAnalytics />
-
             </ProtectedRoute>
           }
         />
@@ -102,17 +80,12 @@ function AppRoutes() {
           path="/user-reports"
           element={
             <ProtectedRoute allowedRole="user">
-
               <UserReports />
-
             </ProtectedRoute>
           }
         />
-
       </Routes>
-
-    </BrowserRouter>
-
+    </HashRouter>
   );
 }
 
